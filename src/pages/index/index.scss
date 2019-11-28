@@ -1,0 +1,85 @@
+.index-wrapper {
+
+    // 轮播图区域开始
+    .swiper-area {
+        position: relative;
+
+        .search-area {
+            position: absolute;
+            top: 24px;
+            left: 5vw;
+            width: 92vw;
+        }
+    }
+    // 轮播图区域结束
+
+    // 导航区域开始
+    .nav-area {
+
+        background-color: #fff;
+        display: flex;
+        padding: 10px 0;
+        .item {
+            text-align: center;
+            width: 25%;
+
+            .img {
+               img {
+                   width: 14vw;
+               }
+                // height: 60%;
+            }
+        }
+    }
+    // 导航区域结束
+
+    // 租房小组开始
+    .zfxz-area {
+        .head {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 10px;
+            .title {
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .more {
+                color: #333;
+            }
+        }
+        .body {
+            display: flex;
+            flex-wrap: wrap;
+
+            .item {
+                background-color: #fff;
+                width: 50%;
+                display: flex;
+                padding: 10px;
+                border: 5px solid  rgb(245, 245, 245);
+                .left {
+                    flex: 3;
+                    display: flex;
+                    flex-direction: column;
+                    span {
+                        &:nth-child(1) {
+                            font-weight: 600;
+                        }
+                        &::nth-child(2) {
+                            font-weight: 50;
+                            color: #333;
+                        }
+                    }
+                }
+                .img {
+                    flex: 1;
+                    img {
+                        width: 16vw; 
+                    }
+                }
+            }
+
+        }
+    }
+    // 租房小组结束
+}

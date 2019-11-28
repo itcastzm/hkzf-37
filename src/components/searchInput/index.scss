@@ -1,0 +1,40 @@
+.comp-searchinput {
+
+    display: flex;
+    align-items: center;
+
+    .s-l {
+        flex: 7;
+        display: flex;
+        background-color: #fff;
+        padding: 10px;
+
+        .city {
+            flex: 1;
+
+            span {
+                font-size: 16px;
+            }
+        }
+
+        .input {
+            padding-left: 10px;
+            flex: 4;
+
+            span {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .s-r {
+        flex: 1;
+        text-align: center;
+
+        .icon-map {
+            font-size: 25px;
+            color: #fff;
+        }
+    }
+
+}

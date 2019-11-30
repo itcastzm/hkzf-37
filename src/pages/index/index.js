@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { Carousel } from 'antd-mobile';
 // 引入axios包
 import axios from 'axios';
+
 import SearchInput from 'components/searchInput';
+import { withRouter } from 'react-router-dom';
+
 // sass 样式引入
 import './index.scss';
+
+import { BASE_URL, API } from 'utils';
 
 
 // 引入导航图片
@@ -17,23 +22,63 @@ import nav4 from 'assets/images/nav-4.png';
 const navs = [{ img: nav1, title: '整租' }, { img: nav2, title: '合租' },
 { img: nav3, title: '地图找房' }, { img: nav4, title: '去出租' }];
 
-export default class index extends Component {
+class Index extends React.PureComponent {
     state = {
         swiperList: [],
         zfzxList: [],
-        imgHeight: 176,
+        zxzxList: [],
+        imgHeight: 212,
+        loca_info: {}
     }
+
     async componentDidMount() {
         // 请求轮播图数据
         // async  await
-        let swiperRes = await axios.get('http://localhost:8080/home/swiper');
-        let zfxzRes = await axios.get('http://localhost:8080/home/groups?area=AREA%7C88cff55c-aaa4-e2e0');
+        let swiperList = await API.get(`/home/swiper`);
+        let zfzxList = await API.get(`/home/groups?area=AREA%7C88cff55c-aaa4-e2e0`);
+        let zxzxList = await API.get(`/home/news?area=AREA%7C88cff55c-aaa4-e2e0`);
+        // 百度定位 拿到城市名
+        let loca_info = await this.getCurrentCity();
+        console.log(loca_info);
+
+
         this.setState({
-            swiperList: swiperRes.data.body,
-            zfzxList: zfxzRes.data.body,
+            swiperList,
+            zfzxList,
+            zxzxList,
+            loca_info
         });
 
     }
+    // 百度定位 拿到城市名
+    getCurrentCity() {
+        var myCity = new window.BMap.LocalCity();
+        return new Promise(function (resove, reject) {
+            try {
+                myCity.get((result) => {
+                    resove(result);
+                });
+            } catch (e) {
+                reject(e);
+            }
+        })
+    }
+
+    //跳转到城市列表页面
+    toCityList = () => {
+        // /citylist 1. 路由方式切换传递城市名   2.  redux全局管理信息
+        this.props.history.push({
+            pathname: '/citylist',
+            loca_info: this.state.loca_info
+        });
+    }
+
+    // 跳转到地图找房
+    toMap = () => {
+        this.props.history.push('/map');
+    }
+
+
     render() {
         console.log('首页')
         return (
@@ -60,7 +105,7 @@ export default class index extends Component {
                                     onLoad={() => {
                                         // fire window resize event to change height
                                         window.dispatchEvent(new Event('resize'));
-                                        this.setState({ imgHeight: 'auto' });
+                                        // this.setState({ imgHeight: 'auto' });
                                     }}
                                 />
                             </a>
@@ -73,12 +118,12 @@ export default class index extends Component {
                         <SearchInput
                             // searchInput 需要对外至少三个api
                             // 1. 点击城市名的处理
-                            onCity={() => { console.log('点击城市名;') }}
+                            onCity={this.toCityList}
                             // 2. 点击输入框的处理
                             onInput={() => { console.log('点击输入！') }}
                             // 3. 点击地图图标的处理
-                            onMap={() => { console.log('点击地图图标') }}
-
+                            onMap={this.toMap}
+                            cityName={this.state.loca_info.name}
                         />
                     </div>
                     {/* 搜索框结束 */}
@@ -112,8 +157,8 @@ export default class index extends Component {
                                     <span>{v.title}</span>
                                     <span>{v.desc}</span>
                                 </div>
-                                <div  className="img">
-                                    <img  src={`http://localhost:8080${v.imgSrc}`} />
+                                <div className="img">
+                                    <img src={`http://localhost:8080${v.imgSrc}`} />
                                 </div>
 
                             </div>
@@ -121,7 +166,33 @@ export default class index extends Component {
                     </div>
                 </div>
                 {/* 租房小组结束 */}
+
+                {/* 最新资讯开始 */}
+                <div className="zxzx-area">
+                    <div className="head">最新资讯</div>
+                    <div className="items">
+                        {this.state.zxzxList.map(v => (
+                            <div key={v.id} className="item">
+                                <div className="img">
+                                    <img src={`${BASE_URL}${v.imgSrc}`} />
+                                </div>
+                                <div className="item-r">
+                                    <div className="r-top">
+                                        {v.title}
+                                    </div>
+                                    <div className="r-bottom">
+                                        <span>{v.from}</span>
+                                        <span>{v.date}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                {/* 最新资讯结束 */}
             </div>
         );
     }
 }
+//为了让组件  拿到history 对象  使用这种方式包裹一下组件
+export default withRouter(Index);

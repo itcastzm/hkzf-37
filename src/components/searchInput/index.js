@@ -3,15 +3,15 @@ import './index.scss';
 // import PropTypes from 'prop-types';
 export default class Index extends Component {
 
-    handleCity=()=> {
+    handleCity = () => {
         //点击城市名的事件处理
         this.props.onCity();
     }
-    handleInput=()=> {
+    handleInput = () => {
         // {/* 点击输入框的事件 */}
         this.props.onInput();
     }
-    handleMap=()=> {
+    handleMap = () => {
         // 点击地图的操作
         this.props.onMap();
     }
@@ -23,7 +23,7 @@ export default class Index extends Component {
                     {/* 城市名开始 */}
                     <div className="city">
                         {/* 点击城市名的事件 */}
-                        <span  onClick={this.handleCity}>上海</span>
+                        <span onClick={this.handleCity}>{this.props.cityName && this.props.cityName.slice(0, 2)}</span>
                         {/* 小图标开始 */}
                         <i className="iconfont icon-arrow"></i>
                         {/* 小图标结束 */}
@@ -51,9 +51,9 @@ export default class Index extends Component {
 }
 // props的默认值
 Index.defaultProps = {
-    onCity:()=> {},
-    onInput:()=> {},
-    onMap:()=> {},
+    onCity: () => { },
+    onInput: () => { },
+    onMap: () => { },
 }
 // props的类型检查
 

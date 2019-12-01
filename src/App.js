@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter,  HashRouter, Route , Link, Redirect } from 'react-router-dom';
+// 引入react-redux 根组件  
+import { Provider } from 'react-redux';
+
+import  store from 'store';
+
 // 引入大首页组件
 import  Home  from 'pages/home';
 // 引入城市列表组件
@@ -11,7 +16,7 @@ import  MapPage   from 'pages/map';
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         {/* 定义路由 */}
         <BrowserRouter>
           {/* 导航区 */}
@@ -29,7 +34,7 @@ export default class App extends Component {
           {/* 大首页页面 */}
           <Route  path="/home"  component={ Home } />
         </BrowserRouter>
-      </div>
+      </Provider>
     )
   }
 }

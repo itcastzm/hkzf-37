@@ -1,17 +1,66 @@
 .citylist-wrapper {
 
+    // 城市列表顶部开始
     .am-navbar {
-
+        
         &.am-navbar-light {
             background-color: #f5f6f5;
         }
-
+        
         .am-navbar-left {
             .icon-back {
                 color: #333;
             }
         }
+        
+    }
+    // 城市列表顶部结束
 
+    // 列表开始
+    .list-area {
+        width: 100vw;
+        height: calc(100vh - 50px);
+        position: relative;
+
+        .list-item {
+
+            background-color: #fff;
+
+            .title {
+               font-size: 14px;
+               color: #666;
+               padding: 15px 5px;
+            }
+
+            .item {
+                font-size: 16px;
+                padding: 15px 5px;
+                border-bottom: 1px solid #f5f6f5;
+            }
+        }
+
+        // 列表右侧索引开始
+        .list-r {
+            position: absolute;
+            right: 5px;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+            span {
+                text-align: center;
+                margin: 5px 0;
+                width: 16px;
+                height: 16px;
+
+                &.active {
+                    background-color: #21b97a;
+                    color: #fff;
+                    border-radius: 8px;
+                }
+            }
+
+        }
+        // 列表右侧索引结束
     }
 
 

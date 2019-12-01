@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import SearchInput from 'components/searchInput';
 import { withRouter } from 'react-router-dom';
+// 引入connect高阶组件
+import { connect } from 'react-redux';
 
 // sass 样式引入
 import './index.scss';
@@ -37,16 +39,16 @@ class Index extends React.PureComponent {
         let swiperList = await API.get(`/home/swiper`);
         let zfzxList = await API.get(`/home/groups?area=AREA%7C88cff55c-aaa4-e2e0`);
         let zxzxList = await API.get(`/home/news?area=AREA%7C88cff55c-aaa4-e2e0`);
+
+        console.log(this.props);
         // 百度定位 拿到城市名
-        let loca_info = await this.getCurrentCity();
-        console.log(loca_info);
-
-
+        // let loca_info = await this.getCurrentCity();
+        // console.log(loca_info);
         this.setState({
             swiperList,
             zfzxList,
             zxzxList,
-            loca_info
+            // loca_info
         });
 
     }
@@ -69,7 +71,7 @@ class Index extends React.PureComponent {
         // /citylist 1. 路由方式切换传递城市名   2.  redux全局管理信息
         this.props.history.push({
             pathname: '/citylist',
-            loca_info: this.state.loca_info
+            // loca_info: this.state.loca_info
         });
     }
 
@@ -123,7 +125,7 @@ class Index extends React.PureComponent {
                             onInput={() => { console.log('点击输入！') }}
                             // 3. 点击地图图标的处理
                             onMap={this.toMap}
-                            cityName={this.state.loca_info.name}
+                            cityName={this.props.loc_info.name}
                         />
                     </div>
                     {/* 搜索框结束 */}
@@ -194,5 +196,12 @@ class Index extends React.PureComponent {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loc_info: state.indexReducer.loc_info
+    }
+}
 //为了让组件  拿到history 对象  使用这种方式包裹一下组件
-export default withRouter(Index);
+// 注意事项  withRouter  是要放在最外层
+export default withRouter(connect(mapStateToProps)(Index));

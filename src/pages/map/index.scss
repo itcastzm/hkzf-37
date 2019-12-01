@@ -1,0 +1,74 @@
+.map-wrapper {
+
+    // 地图找房顶部开始
+    .am-navbar {
+        &.am-navbar-light {
+            background-color: #f5f6f5;
+        }
+
+        .am-navbar-left {
+            .icon-back {
+                color: #333;
+            }
+        }
+
+    }
+
+    // 地图找房顶部结束
+    // 百度地图开始
+    .geo-area {
+        height: calc(100vh - 50px);
+        width: 100vw;
+
+        .cicle {
+            z-index: 100;
+            width: 70px;
+            height: 70px;
+            line-height: 1;
+            display: inline-block;
+            position: absolute;
+            border-radius: 100%;
+            background: rgba(12,181,106,.9);
+            color: #fff;
+            border: 2px solid hsla(0,0%,100%,.8);
+            text-align: center;
+            cursor: pointer;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .rect {
+            z-index: 100;
+            width: 120px;
+            height: 20px;
+            // line-height: 1;
+            display: inline-block;
+            position: absolute;
+            // border-radius: 100%;
+            background: rgba(12,181,106,.9);
+            color: #fff;
+            border: 2px solid hsla(0,0%,100%,.8);
+            text-align: center;
+            cursor: pointer;
+            transform: translateX(-50%) translateY(-50%);
+        }
+    }
+
+    // 百度地图结束
+
+    // 房屋列表开始
+    .house-list-area {
+        bottom: -50vh;
+        left: 0;
+        right: 0;
+        position: fixed;
+        height: 50vh;
+        background-color: #fff;
+
+        transition: 1s bottom;
+
+        &.show {
+            bottom: 0;
+        }
+    }
+    // 房屋列表结束
+}

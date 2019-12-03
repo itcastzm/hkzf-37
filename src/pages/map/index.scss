@@ -28,9 +28,9 @@
             display: inline-block;
             position: absolute;
             border-radius: 100%;
-            background: rgba(12,181,106,.9);
+            background: rgba(12, 181, 106, .9);
             color: #fff;
-            border: 2px solid hsla(0,0%,100%,.8);
+            border: 2px solid hsla(0, 0%, 100%, .8);
             text-align: center;
             cursor: pointer;
             transform: translateX(-50%) translateY(-50%);
@@ -44,9 +44,9 @@
             display: inline-block;
             position: absolute;
             // border-radius: 100%;
-            background: rgba(12,181,106,.9);
+            background: rgba(12, 181, 106, .9);
             color: #fff;
-            border: 2px solid hsla(0,0%,100%,.8);
+            border: 2px solid hsla(0, 0%, 100%, .8);
             text-align: center;
             cursor: pointer;
             transform: translateX(-50%) translateY(-50%);
@@ -57,11 +57,12 @@
 
     // 房屋列表开始
     .house-list-area {
-        bottom: -50vh;
+        bottom: -350px;
         left: 0;
         right: 0;
         position: fixed;
-        height: 50vh;
+        height: 350px;
+        overflow: auto;
         background-color: #fff;
 
         transition: 1s bottom;
@@ -69,6 +70,29 @@
         &.show {
             bottom: 0;
         }
+
+        // 房源列表头部开始
+        .head {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #ccc;
+
+            span {
+                &:nth-child(1) {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+                &:nth-child(2) {
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        // 房源列表头部结束
     }
+
     // 房屋列表结束
 }

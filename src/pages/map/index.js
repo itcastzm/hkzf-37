@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { NavBar, Icon } from 'antd-mobile';
 import { connect } from 'react-redux';
+
+// 引入acitons 方法
+import { changeHomeTab } from 'store/actions';
 import { API } from 'utils';
+
+import HouseListItem from 'components/HouseListItem';
 
 import './index.scss';
 
@@ -14,7 +19,8 @@ class Index extends Component {
     }
 
     state = {
-        showHouseList: false
+        showHouseList: false,
+        houselist: []
     }
 
     level = 0;
@@ -30,6 +36,17 @@ class Index extends Component {
         map.setCenter(this.props.loc_info.name);
         let cityInfo = await API.get(`/area/info?name=${name}`);
         let houseList = await API.get(`/area/map?id=${cityInfo.value}`);
+
+
+        // 监听地图移动事件  当房源列表打开时  移动地图 隐藏房源列表
+        map.addEventListener('movestart', () => {
+            if (this.state.showHouseList) {
+                this.setState({
+                    showHouseList: false,
+                    houselist: []
+                });
+            }
+        });
 
 
         houseList.forEach((v, i) => {
@@ -66,29 +83,47 @@ class Index extends Component {
             textAlign: 'center'
         });
 
-        label.addEventListener('click', function () {
+        label.addEventListener('click', function (e) {
 
             if (that.level === 2) {
-                //TODO 显示房源列表
-                that.setState({
-                    showHouseList: true
-                });
-                return;
+                // 移动选中的小区到加载房源列表以后的地图中心
+                let target = e.changedTouches[0];
+                instance.panBy(window.innerWidth / 2 - target.clientX,
+                    (window.innerHeight - 350) / 2 - target.clientY
+                );
+                that.handleClickCommunity(instance, item);
+
+            } else {
+                // 1. 把地图移动到点击位置  并放大
+                // 把地图移动到点击位置  并放大
+                that.level = that.level + 1;
+                instance.setCenter(point);
+                instance.setZoom(levelMap[that.level]);
+                // 2. 清除地图上的所有遮罩物 
+                // 注意： 百度地图的bug  通过setTimeOut去解决
+                setTimeout(() => {
+                    instance.clearOverlays();
+                }, 0);
+                that.handleCircleClick(item, instance);
             }
-            // 1. 把地图移动到点击位置  并放大
-            // 把地图移动到点击位置  并放大
-            that.level = that.level + 1;
-            instance.setCenter(point);
-            instance.setZoom(levelMap[that.level]);
-            // 2. 清除地图上的所有遮罩物 
-            // 注意： 百度地图的bug  通过setTimeOut去解决
-            setTimeout(() => {
-                instance.clearOverlays();
-            }, 0);
-            that.handleCircleClick(item, instance);
+
         });
 
         instance.addOverlay(label);
+    }
+
+    // 点击小区后的处理函数
+    async handleClickCommunity(instance, item) {
+
+        // 1. 加载该小区房源列表数据
+        let data = await API.get(`/houses?cityId=${item.value}`);
+        // 2. 拿到加载好的数据 渲染在房源列表里头
+        //TODO 显示房源列表
+        this.setState({
+            showHouseList: true,
+            houselist: data.list
+        });
+
     }
 
     async handleCircleClick(item, instance) {
@@ -96,6 +131,21 @@ class Index extends Component {
         let houseList = await API.get(`/area/map?id=${item.value}`);
         houseList.forEach((v, i) => {
             this.renderCircle(instance, v)
+        });
+    }
+
+    // 跳转到找房页面
+    toMoreHouse = () => {
+        this.props.dispatch(changeHomeTab('rent'));
+        this.props.history.push({
+            pathname: '/home'
+        });
+    }
+
+    //跳转到房源详情页
+    toDetailPage(item) {
+        this.props.history.push({
+            pathname: `/detail/${item.houseCode}`
         });
     }
 
@@ -121,7 +171,18 @@ class Index extends Component {
                 {/* 地图区域结束 */}
                 {/* 房屋列表开始 */}
                 <div className={['house-list-area', this.state.showHouseList ? 'show' : ''].join(' ')}>
+                    {/* 拿到加载好的数据 渲染在房源列表里头 */}
+                    <div className="head">
+                        <span>房源列表</span>
+                        <span onClick={this.toMoreHouse}>更多房源</span>
+                    </div>
 
+                    <div className="items">
+                        {this.state.houselist.map((v, i) => (
+                            // 房源卡片组件
+                            <HouseListItem onClick={this.toDetailPage.bind(this, v)} key={v.houseCode} item={v} />
+                        ))}
+                    </div>
                 </div>
                 {/* 房屋列表结束 */}
             </div>

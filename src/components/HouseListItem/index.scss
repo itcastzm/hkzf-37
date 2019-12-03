@@ -1,0 +1,66 @@
+.comp-house-list-item {
+    padding: 10px;
+    display: flex;
+    border-bottom: 1px solid #f5f6f5;
+
+    .img {
+        width: 30vw;
+
+        img {
+            width: 95%;
+            height: 95%;
+        }
+    }
+
+    .item-r {
+        flex: 1;
+        padding-left: 5px;
+
+        .title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .desc {
+            color: #ccc;
+            font-size: 12px;
+            padding: 5px 0;
+        }
+
+        .tags {
+            padding: 5px 0;
+            span {
+                display: inline-block;
+                font-size: 12px;
+                border-radius: 3px;
+                padding: 4px 5px;
+                margin-right: 5px;
+                line-height: 12px;
+
+                &:nth-child(1) {
+                    color: #39becd;
+                    background: #e1f5f8;
+                }
+
+                &:nth-child(2) {
+                    color: #3fc28c;
+                    background: #e1f5ed;
+                }
+                &:nth-child(3) {
+                    color: #5aabfd;
+                    background: #e6f2ff;
+                }
+            }
+        }
+
+        .price {
+            color: #fa5741;
+            font-size: 12px;
+            
+            span {
+                font-size: 16px;
+                font-weight: bolder;
+            }
+        }
+    }
+}

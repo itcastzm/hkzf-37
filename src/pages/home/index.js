@@ -1,6 +1,11 @@
 import { TabBar } from 'antd-mobile';
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+// 引入actions 方法
+import { changeHomeTab } from 'store/actions';
+
 // 首页
 import Index from 'pages/index';
 // 找房
@@ -10,16 +15,10 @@ import News from 'pages/news';
 // 我的
 import My from 'pages/my';
 
-export default class Home extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedTab: 'index',
-    };
-  }
+class Home extends Component {
 
   render() {
+
     return (
       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
         <TabBar
@@ -32,8 +31,8 @@ export default class Home extends Component {
             key="index"
             icon={<i className="iconfont  icon-ind"></i>}
             selectedIcon={<i className="iconfont  icon-ind"></i>}
-            selected={this.state.selectedTab === 'index'}
-            onPress={() => { this.setState({ selectedTab: 'index', }); }}
+            selected={this.props.selectedTab === 'index'}
+            onPress={() => { this.props.dispatch(changeHomeTab('index')) ;}}
           >
             {/* 首页 */}
             <Index />
@@ -43,8 +42,8 @@ export default class Home extends Component {
             selectedIcon={<i className="iconfont icon-findHouse"></i>}
             title="找房"
             key="rent"
-            selected={this.state.selectedTab === 'rent'}
-            onPress={() => { this.setState({ selectedTab: 'rent', }); }}
+            selected={this.props.selectedTab === 'rent'}
+            onPress={() => { this.props.dispatch(changeHomeTab('rent'));}}
           >
             {/* 找房 */}
             <Rent />
@@ -54,8 +53,8 @@ export default class Home extends Component {
             selectedIcon={<i className="iconfont icon-infom"></i>}
             title="资讯"
             key="news"
-            selected={this.state.selectedTab === 'news'}
-            onPress={() => { this.setState({ selectedTab: 'news', }); }}
+            selected={this.props.selectedTab === 'news'}
+            onPress={() => { this.props.dispatch(changeHomeTab('news')); }}
           >
             {/* 资讯 */}
             <News />
@@ -65,8 +64,8 @@ export default class Home extends Component {
             selectedIcon={<i className="iconfont icon-myinfo"></i>}
             title="我的"
             key="my"
-            selected={this.state.selectedTab === 'my'}
-            onPress={() => { this.setState({ selectedTab: 'my', }); }}
+            selected={this.props.selectedTab === 'my'}
+            onPress={() => {  this.props.dispatch(changeHomeTab('my'));  }}
           >
             {/* 我的 */}
             <My />
@@ -76,3 +75,11 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = (state)=> {
+  return {
+    selectedTab: state.indexReducer.selectedTab
+  }
+}
+
+export default  connect(mapStateToProps)(Home);

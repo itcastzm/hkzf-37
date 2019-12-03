@@ -1,0 +1,310 @@
+.detail-wrapper {
+
+    // 轮播图区域开始
+    .swiper-area {
+        position: relative;
+
+        .head-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            // background-color: #fff;
+            .am-navbar {
+                &.am-navbar-light {
+                    background-color: rgba(0, 0, 0, 0);
+                    color: #fff;
+
+                    .am-navbar-title {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    // 轮播图区域结束
+
+
+    // 房屋标题开始
+    .title {
+        font-size: 16px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    // 房屋标题结束
+    // 标签列表开始
+    .tags {
+
+        background-color: #fff;
+        padding-left: 10px;
+
+        span {
+            display: inline-block;
+            font-size: 12px;
+            border-radius: 3px;
+            padding: 4px 5px;
+            margin-right: 5px;
+            line-height: 12px;
+
+            &:nth-child(1) {
+                color: #39becd;
+                background: #e1f5f8;
+            }
+
+            &:nth-child(2) {
+                color: #3fc28c;
+                background: #e1f5ed;
+            }
+
+            &:nth-child(3) {
+                color: #5aabfd;
+                background: #e6f2ff;
+            }
+        }
+    }
+
+    // 标签列表结束
+
+    // 房屋行情开始
+    .house-status {
+        background-color: #fff;
+        padding: 10px;
+
+        .status-items {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+
+            .item {
+                text-align: center;
+                padding: 20px 0;
+                flex: 1;
+
+                .up {
+                    color: #fa5741;
+                    font-size: 16px;
+                    font-weight: 600;
+
+                    span {
+                        font-weight: normal;
+                    }
+
+                    padding: 5px;
+                }
+
+                .bottom {
+                    padding: 5px;
+                    font-size: 14px;
+                    color: #666;
+                }
+
+            }
+        }
+    }
+
+    // 房屋行情结束
+
+    // 房屋的结构开始
+    .house-type {
+        background-color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 10px solid #f5f6f5;
+
+        .item {
+            box-sizing: border-box;
+            width: 50%;
+            padding: 10px;
+
+            span {
+                &:nth-child(1) {
+                    color: #666;
+                }
+
+                &:nth-child(2) {
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+
+    // 房屋的结构结束
+
+    // 定位区域开始
+    .map-area {
+        // background-color: #fff;
+
+        .head {
+            // height: 45px;
+            font-size: 14px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .map {
+            width: 100vw;
+            height: 145px;
+        }
+    }
+
+    // 定位区域结束
+
+    // 房屋配套开始
+    .house-pt {
+        padding: 0 10px;
+        background-color: #fff;
+        border-bottom: 10px solid #f5f6f5;
+
+        .head {
+
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .supports {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px 0;
+
+
+            .item {
+                width: 20%;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+
+                .iconfont {
+                    padding: 5px 0;
+                    font-size: 23px;
+                }
+            }
+        }
+    }
+
+    // 房屋配套结束
+
+    // 房源概况开始
+    .house-gk {
+        padding: 0 10px;
+        background-color: #fff;
+        border-bottom: 10px solid #f5f6f5;
+        // margin-bottom: 50px;
+
+        .head {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fd-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+           
+
+            .info-l {
+                display: flex;
+                align-items: center;
+
+                .img {
+                    width: 12vw;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .info-fd {
+                    padding-left: 10px;
+                    display: flex;
+                    flex-direction: column;
+
+                    span {
+                        font-size: 12px;
+
+                        &:nth-child(2) {
+                            color: #fa5741;
+                        }
+                    }
+                }
+            }
+
+            span {
+
+                &.fxx {
+                    color: #33be85;
+                    border: 1px solid #33be85;
+                    border-radius: 3px;
+                    padding: 3px 15px;
+                    margin-right: 10px;
+                }
+
+            }
+        }
+
+        .description {
+            line-height: 1.6;
+            padding: 10px 0;
+            color: #333;
+        }
+
+    }
+
+    // 房源概况结束
+
+    // 操作按钮开始
+    .opers {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        line-height: 50px;
+        vertical-align: middle;
+        background-color: #fff;
+        span {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            color: #999;
+            border-right: 1px solid #e8e8e9;
+            border-top: 1px solid #e8e8e9;
+            .iconfont {
+                padding-right: 5px;
+            }
+        }
+
+        a {
+            flex:1;
+            text-align: center;
+            border-right: 1px solid #e8e8e9;
+            background-color: #21b97a;
+            font-size: 17px;
+            color: #fff;
+        }
+    }
+    // 操作按钮结束
+
+    // 猜你喜欢开始
+    .u-like {
+        background-color: #fff;
+        padding: 0 10px;
+
+        .head {
+            font-size: 14px;
+            padding: 10px 0;
+            font-weight: 600;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+    // 猜你喜欢结束
+
+}

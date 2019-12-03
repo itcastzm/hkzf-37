@@ -1,5 +1,5 @@
 // 首页的数据
-import { FETCH_CITYLIST, SET_CURRENT_CITY } from 'store/constants';
+import { FETCH_CITYLIST, SET_CURRENT_CITY, CHANGE_HOME_TAB } from 'store/constants';
 // 初始值
 const defaultState = {
     loc_info: {
@@ -14,6 +14,7 @@ const defaultState = {
     citylist: [],
     // 我们排序好的城市列表数据
     sortedclist: [],
+    selectedTab: 'rent'
 
 }
 
@@ -43,9 +44,18 @@ export default function (state = defaultState, action) {
                     ...loc_info,
                     name: cityName
                 },
-                sortedclist: [... sortedclist]
+                sortedclist: [...sortedclist]
             };
 
+        }
+
+        case CHANGE_HOME_TAB: {
+            let { target } = action;
+
+            return {
+                ...state,
+                selectedTab: target
+            }
         }
 
         default: {

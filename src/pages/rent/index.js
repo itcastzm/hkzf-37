@@ -3,11 +3,23 @@ import { NavBar, Icon } from 'antd-mobile';
 import SearchInput from 'components/searchInput';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Filter from './components/Filter';
+
+
+// 引入强大列表组件
+import { List, AutoSizer } from 'react-virtualized';
+import HouseListItem from 'components/HouseListItem';
+
+import { API } from 'utils';
+
 import './index.scss';
 
 class Index extends React.PureComponent {
 
 
+    state = {
+        list: []
+    }
     //跳转到城市列表页面
     toCityList = () => {
         // /citylist 1. 路由方式切换传递城市名   2.  redux全局管理信息
@@ -21,6 +33,79 @@ class Index extends React.PureComponent {
     toMap = () => {
         this.props.history.push('/map');
     }
+
+    // 请求数据
+    async  searchByParams(params) {
+        console.log(params);
+        let start = 1;
+        let end = 20;
+        let cityId = 'AREA|e4940177-c04c-383d';
+        let area = 'null';
+        if (params.area.length > 1 && params.area[params.area.length - 1]) {
+            area = params.area[params.area.length - 1];
+        }
+        let mode = 'null';
+        if (params.mode.length) {
+            mode = params.mode[0];
+        }
+        let price = 'null';
+        if (params.price.length) {
+            price = params.price[0];
+        }
+        let more = 'null';
+        if (params.more.length) {
+            more = params.more.join(',');
+        }
+        let url = `&area=${area}&mode=${mode}&price=${price}&more=${more}`;
+        let data = await API.get(`/houses?cityId=${cityId}&start=${start}&end=${end}&${url}`);
+
+        this.setState({
+            list: data.list
+        });
+
+    }
+
+    async  componentDidMount() {
+        let start = 1;
+        let end = 20;
+        let cityId = 'AREA|e4940177-c04c-383d';
+        let area = 'null';
+        let mode = 'null';
+        let price = 'null';
+        let more = 'null';
+        let url = `&area=${area}&mode=${mode}&price=${price}&more=${more}`;
+        let data = await API.get(`/houses?cityId=${cityId}&start=${start}&end=${end}&${url}`);
+
+        this.setState({
+            list: data.list
+        });
+    }
+
+    //跳转到房源详情页
+    toDetailPage(item) {
+        this.props.history.push({
+            pathname: `/detail/${item.houseCode}`
+        });
+    }
+
+    rowRenderer = ({
+        key, // Unique key within array of rows
+        index, // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible, // This row is visible within the List (eg it is not an overscanned row)
+        style, // Style object to be applied to row (to position it)
+    }) => {
+        let item = this.state.list[index];
+
+        return <HouseListItem key={key} item={item}
+                onClick={this.toDetailPage.bind(this, item)}
+        />
+    }
+
+    hanleScroll=({ clientHeight, scrollHeight, scrollTop })=> {
+        console.log(clientHeight, scrollHeight, scrollTop);
+    }
+
     render() {
         console.log('找房')
         return (
@@ -45,7 +130,39 @@ class Index extends React.PureComponent {
                         cityName={this.props.loc_info.name}
                     />
                 </NavBar>
-                找房
+
+
+                {/* 过滤区开始 */}
+                <Filter onSearch={this.searchByParams.bind(this)} />
+                {/* 过滤区结束 */}
+                {/* 房源列表开始 */}
+                <div className={'house-list'}>
+                    {this.state.list.map((v, i) => (
+                        <HouseListItem key={i} item={v}
+                            onClick={this.toDetailPage.bind(this, v)}
+                        />
+                    ))}
+
+                    <AutoSizer>
+                        {({ height, width }) => (
+                            <List
+                                width={width}
+                                height={height}
+                                rowCount={this.state.list.length}
+                                rowHeight={150}
+                                rowRenderer={this.rowRenderer}
+                                // onRowsRendered={this.rowsRendered}
+                                // 为了跳转精确  需要配置 对齐方式
+                                scrollToAlignment="start"
+                                onScroll={this.hanleScroll}
+                            // 把引用和组件绑定
+                            // ref={this.listRef}
+                            />
+                        )}
+                    </AutoSizer>
+                </div>
+                {/* 房源列表结束 */}
+
             </div>
         )
     }

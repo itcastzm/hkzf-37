@@ -32,7 +32,7 @@ class Home extends Component {
             icon={<i className="iconfont  icon-ind"></i>}
             selectedIcon={<i className="iconfont  icon-ind"></i>}
             selected={this.props.selectedTab === 'index'}
-            onPress={() => { this.props.dispatch(changeHomeTab('index')) ;}}
+            onPress={() => { this.props.dispatch(changeHomeTab('index'));}}
           >
             {/* 首页 */}
             <Index />

@@ -1,0 +1,165 @@
+.comp-filter-wrapper {
+    z-index: 101;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
+    .mask {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* 组件头部开始 */
+    .head {
+        display: flex;
+        padding: 5px 0;
+        background-color: #fff;
+        position: relative;
+
+        span {
+            flex: 1;
+            font-size: 18px;
+            text-align: center;
+
+            &.active {
+                color: #21b97a;
+            }
+        }
+    }
+
+    /* 组件头部结束 */
+    .filter-content {
+        display: none;
+        position: relative;
+
+        &.show {
+            display: block;
+        }
+
+        .am-picker {
+            background-color: #fff;
+
+        }
+
+        .opers {
+            display: flex;
+
+            span {
+                display: inline-block;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 18px;
+
+                &:nth-child(1) {
+                    flex: 1;
+                    color: #21b97a;
+                    background-color: #fff;
+                }
+
+                &:nth-child(2) {
+                    flex: 2;
+                    color: #fff;
+                    background-color: #21b97a;
+                }
+            }
+        }
+
+    }
+
+
+    // 第四个过滤页签开始
+    .fitler-area {
+        position: fixed;
+        height: 100vh;
+        overflow: auto;
+        left: 100vw;
+        // right: 0;
+        top: 0;
+        bottom: 0;
+        width: 80vw;
+        background-color: #fff;
+        padding-bottom: 50px;
+
+        transition: 1s left;
+
+        &.show{
+            left: 20vw;
+        }
+
+        .item {
+            padding: 10px;
+
+            .head {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .spans {
+                display: flex;
+                flex-wrap: wrap;
+
+                border-bottom: 1px solid #ccc;
+
+                span {
+                    display: inline-block;
+                    height: 32px;
+                    width: 70px;
+                    margin: 0 18px 15px 0;
+                    border: 1px solid #ddd;
+                    border-radius: 3px;
+                    line-height: 32px;
+                    text-align: center;
+                    font-size: 12px;
+                    color: #888;
+
+                    &.active {
+                        border: 1px solid #21b97a;
+                        color: #21b97a;
+                        background-color: #defaef;
+                    }
+                }
+            }
+        }
+
+        // 清除确定按钮开始
+        .opers {
+            position: fixed;
+            bottom: 0;
+            left: 20vw;
+            right: 0;
+            height: 50px;
+
+            display: flex;
+
+            span {
+                display: inline-block;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 18px;
+
+                &:nth-child(1) {
+                    flex: 1;
+                    color: #21b97a;
+                    background-color: #fff;
+                }
+
+                &:nth-child(2) {
+                    flex: 2;
+                    color: #fff;
+                    background-color: #21b97a;
+                }
+            }
+        }
+
+        // 清除确定按钮结束
+
+    }
+
+    // 第四个过滤页签结束
+}

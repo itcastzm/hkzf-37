@@ -1,5 +1,6 @@
 .rent-wrapper {
 
+    position: relative;
 
     .am-navbar.am-navbar-light {
 
@@ -31,5 +32,9 @@
         .am-navbar-right {
             display: none;
         }
+    }
+
+    .house-list {
+        margin-top: 30px;
     }
 }

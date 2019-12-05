@@ -153,11 +153,11 @@ class Index extends React.PureComponent {
                 {/* 过滤区结束 */}
                 {/* 房源列表开始 */}
                 <div className={'house-list'}>
-                    {this.state.list.map((v, i) => (
+                    {/* {this.state.list.map((v, i) => (
                         <HouseListItem key={i} item={v}
                             onClick={this.toDetailPage.bind(this, v)}
                         />
-                    ))}
+                    ))} */}
 
                     <AutoSizer>
                         {({ height, width }) => (
@@ -165,7 +165,7 @@ class Index extends React.PureComponent {
                                 width={width}
                                 height={height}
                                 rowCount={this.state.list.length}
-                                rowHeight={150}
+                                rowHeight={120}
                                 rowRenderer={this.rowRenderer}
                                 // onRowsRendered={this.rowsRendered}
                                 // 为了跳转精确  需要配置 对齐方式

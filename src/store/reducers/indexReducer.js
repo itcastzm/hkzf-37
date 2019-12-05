@@ -14,7 +14,7 @@ const defaultState = {
     citylist: [],
     // 我们排序好的城市列表数据
     sortedclist: [],
-    selectedTab: 'rent'
+    selectedTab: 'index'
 
 }
 

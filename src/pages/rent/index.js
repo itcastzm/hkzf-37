@@ -10,7 +10,7 @@ import Filter from './components/Filter';
 import { List, AutoSizer } from 'react-virtualized';
 import HouseListItem from 'components/HouseListItem';
 
-import { API } from 'utils';
+import { API, BASE_URL } from 'utils';
 
 import './index.scss';
 
@@ -97,12 +97,28 @@ class Index extends React.PureComponent {
     }) => {
         let item = this.state.list[index];
 
-        return <HouseListItem key={key} item={item}
-                onClick={this.toDetailPage.bind(this, item)}
-        />
+        // return <HouseListItem key={key} style={style} item={item}
+        //     onClick={this.toDetailPage.bind(this, item)}
+        // />
+
+        return (
+            <div className="comp-house-list-item" key={key} style={style}  onClick={this.toDetailPage.bind(this, item)}>
+                <div className="img">
+                    <img src={`${BASE_URL}${item.houseImg}`} />
+                </div>
+                <div className="item-r">
+                    <div className="title">{item.title}</div>
+                    <div className="desc">{item.desc}</div>
+                    <div className="tags">
+                        {item.tags.map((v, i) => <span key={i}>{v}</span>)}
+                    </div>
+                    <div className="price"> <span>{item.price}</span>元/月</div>
+                </div>
+            </div>
+        )
     }
 
-    hanleScroll=({ clientHeight, scrollHeight, scrollTop })=> {
+    hanleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
         console.log(clientHeight, scrollHeight, scrollTop);
     }
 

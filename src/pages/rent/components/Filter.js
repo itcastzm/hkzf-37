@@ -154,18 +154,19 @@ export default class Filter extends Component {
             <React.Fragment>
                 {this.state.currentTab === 3 ? <div onClick={this.resetTab} className="mask"></div> : null}
                 <div className={["fitler-area", this.state.currentTab === 3 ? 'show' : null].join(' ')} >
-
-                    {this.state.filter.length && this.state.filter.map((v, i) => (
-                        <div key={i} className="item">
-                            <div className="head">{v.label}</div>
-                            <div className="spans">
-                                {v.list.map(p => <span className={filterValue.indexOf(p.value) > -1 ? 'active' : ''}
-                                    key={p.value}
-                                    onClick={this.filterSelect.bind(this, p.value)}
-                                >{p.label}</span>)}
+                    <div className="items">
+                        {this.state.filter.length && this.state.filter.map((v, i) => (
+                            <div key={i} className="item">
+                                <div className="head">{v.label}</div>
+                                <div className="spans">
+                                    {v.list.map(p => <span className={filterValue.indexOf(p.value) > -1 ? 'active' : ''}
+                                        key={p.value}
+                                        onClick={this.filterSelect.bind(this, p.value)}
+                                    >{p.label}</span>)}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                     {this.state.currentTab === 3 ?
                         <div className="opers">
                             <span onClick={this.handleClear}>清除</span>
